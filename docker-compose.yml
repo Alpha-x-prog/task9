@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  admin-server:
+    build: ./admin-server
+    ports:
+      - "3001:3001"
+    restart: always
+    volumes:
+      - ./frontend:/frontend  # Монтируем папку frontend из хоста в контейнер
+      - ./data:/data   
+  product-server:
+    build: ./product-server
+    ports:
+      - "3002:3002"
+      - "3003:3003"
+    restart: always
+    volumes:
+      - ./frontend:/frontend  # Монтируем папку frontend из хоста в контейнер
+      - ./data:/data   

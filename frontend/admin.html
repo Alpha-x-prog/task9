@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Панель администратора</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="p-5">
+    <div class="container">
+        <h1 class="text-center mb-4">Панель администратора</h1>
+
+        <!-- Форма добавления товара -->
+        <h3>Добавить товар</h3>
+        <form id="addProductForm" class="mb-4">
+            <div class="row g-3">
+                <div class="col-md-3">
+                    <input type="text" id="name" class="form-control" placeholder="Название" required>
+                </div>
+                <div class="col-md-2">
+                    <input type="number" id="price" class="form-control" placeholder="Цена" required>
+                </div>
+                <div class="col-md-3">
+                    <input type="text" id="description" class="form-control" placeholder="Описание" required>
+                </div>
+                <div class="col-md-3">
+                    <input type="text" id="categories" class="form-control" placeholder="Категории (через запятую)" required>
+                </div>
+                <div class="col-md-1">
+                    <button type="submit" class="btn btn-success w-100">Добавить</button>
+                </div>
+            </div>
+        </form>
+
+        <!-- Таблица товаров -->
+        <h3>Список товаров</h3>
+        <table class="table table-bordered">
+            <thead class="table-light">
+                <tr>
+                    <th>ID</th>
+                    <th>Название</th>
+                    <th>Цена</th>
+                    <th>Описание</th>
+                    <th>Категории</th>
+                    <th>Действия</th>
+                </tr>
+            </thead>
+            <tbody id="productTableBody"></tbody>
+        </table>
+    </div>
+    <h1>Чат с клиентами</h1>
+    <div id="chat"></div>
+    <input type="text" id="to" placeholder="ID клиента">
+    <input type="text" id="message" placeholder="Введите сообщение">
+    <button onclick="sendMessage()">Отправить</button>
+
+    <script>
+        const ws = new WebSocket('ws://localhost:3003');
+        const userId = 'admin';
+        
+        ws.onopen = () => {
+        ws.send(JSON.stringify({ type: 'init', userId, role: 'admin' }));
+        ws.send(JSON.stringify({ type: 'getClients' }));
+        };
+
+        ws.onmessage = (event) => {
+            const data = JSON.parse(event.data);
+            if (data.type === 'clients') {
+                document.getElementById('chat').innerHTML += `<p><b>Активные клиенты:</b> ${data.clients.join(', ')}</p>`;
+            } else {
+                document.getElementById('chat').innerHTML += `<p><b>${data.from}:</b> ${data.message}</p>`;
+            }
+        };
+
+        
+        function sendMessage() {
+            const to = document.getElementById('to').value;
+            const message = document.getElementById('message').value;
+            ws.send(JSON.stringify({ type: 'message', userId, to, message }));
+            document.getElementById('message').value = '';
+        }
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', fetchProducts);
+        document.getElementById('addProductForm').addEventListener('submit', addProduct);
+
+        async function fetchProducts() {
+            try {
+                const response = await fetch('/api/products');
+                const products = await response.json();
+                renderProducts(products);
+            } catch (error) {
+                console.error("Ошибка загрузки товаров:", error);
+            }
+        }
+
+        function renderProducts(products) {
+            const tableBody = document.getElementById('productTableBody');
+            tableBody.innerHTML = '';
+
+            products.forEach(product => {
+                tableBody.innerHTML += `
+                    <tr>
+                        <td>${product.id}</td>
+                        <td><input class="form-control" value="${product.name}" id="name-${product.id}"></td>
+                        <td><input class="form-control" type="number" value="${product.price}" id="price-${product.id}"></td>
+                        <td><input class="form-control" value="${product.description}" id="description-${product.id}"></td>
+                        <td><input class="form-control" value="${product.categories.join(', ')}" id="categories-${product.id}"></td>
+                        <td>
+                            <button class="btn btn-primary btn-sm" onclick="updateProduct(${product.id})">Сохранить</button>
+                            <button class="btn btn-danger btn-sm" onclick="deleteProduct(${product.id})">Удалить</button>
+                        </td>
+                    </tr>`;
+            });
+        }
+
+        async function addProduct(event) {
+            event.preventDefault();
+            const name = document.getElementById('name').value;
+            const price = document.getElementById('price').value;
+            const description = document.getElementById('description').value;
+            const categories = document.getElementById('categories').value.split(',').map(cat => cat.trim());
+
+            try {
+                await fetch('/api/products', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify([{ name, price, description, categories }])
+                });
+
+                event.target.reset();
+                fetchProducts();
+            } catch (error) {
+                console.error("Ошибка добавления товара:", error);
+            }
+        }
+
+        async function updateProduct(id) {
+            const name = document.getElementById(`name-${id}`).value;
+            const price = document.getElementById(`price-${id}`).value;
+            const description = document.getElementById(`description-${id}`).value;
+            const categories = document.getElementById(`categories-${id}`).value.split(',').map(cat => cat.trim());
+
+            try {
+                await fetch(`/api/products/${id}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name, price, description, categories })
+                });
+
+                fetchProducts();
+            } catch (error) {
+                console.error("Ошибка обновления товара:", error);
+            }
+        }
+
+        async function deleteProduct(id) {
+            if (!confirm('Удалить этот товар?')) return;
+            try {
+                await fetch(`/api/products/${id}`, { method: 'DELETE' });
+                fetchProducts();
+            } catch (error) {
+                console.error("Ошибка удаления товара:", error);
+            }
+        }
+    </script>
+</body>
+</html>

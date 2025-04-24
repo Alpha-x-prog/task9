@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Чат поддержки</title>
+</head>
+<body>
+    <h1>Чат поддержки</h1>
+    <div id="chat"></div>
+    <input type="text" id="message" placeholder="Введите сообщение">
+    <button onclick="sendMessage()">Отправить</button>
+
+    <script>
+        const ws = new WebSocket('ws://localhost:8080');
+        const userId = 'customer1';
+        const adminId = 'admin';
+        
+        ws.onopen = () => {
+            ws.send(JSON.stringify({ type: 'init', userId, role: 'customer' }));
+        };
+        
+        ws.onmessage = (event) => {
+            const data = JSON.parse(event.data);
+            document.getElementById('chat').innerHTML += `<p><b>${data.from}:</b> ${data.message}</p>`;
+        };
+        
+        function sendMessage() {
+            const message = document.getElementById('message').value;
+            ws.send(JSON.stringify({ type: 'message', userId, to: adminId, message }));
+            document.getElementById('message').value = '';
+        }
+    </script>
+</body>
+</html>

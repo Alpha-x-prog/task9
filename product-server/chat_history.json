@@ -1,0 +1,152 @@
+[
+  {
+    "from": "admin",
+    "to": "customer1",
+    "message": "привет",
+    "timestamp": "2025-03-07T09:41:42.603Z"
+  },
+  {
+    "from": "customer1",
+    "to": "admin",
+    "message": "привет",
+    "timestamp": "2025-03-07T09:41:49.034Z"
+  },
+  {
+    "from": "customer1",
+    "to": "admin",
+    "message": "тут",
+    "timestamp": "2025-03-07T09:42:30.930Z"
+  },
+  {
+    "from": "customer1",
+    "to": "admin",
+    "message": "привет",
+    "timestamp": "2025-03-07T09:44:14.037Z"
+  },
+  {
+    "from": "admin",
+    "to": "customer1",
+    "message": "привет",
+    "timestamp": "2025-03-07T09:44:26.148Z"
+  },
+  {
+    "from": "customer1",
+    "to": "admin",
+    "message": "привет",
+    "timestamp": "2025-03-07T10:54:53.358Z"
+  },
+  {
+    "from": "customer1",
+    "to": "admin",
+    "message": "ghbdtn",
+    "timestamp": "2025-03-07T10:55:12.260Z"
+  },
+  {
+    "from": "admin",
+    "to": "customer",
+    "message": "привет",
+    "timestamp": "2025-03-07T10:55:20.794Z"
+  },
+  {
+    "from": "admin",
+    "to": "customer1",
+    "message": "",
+    "timestamp": "2025-03-07T10:55:24.957Z"
+  },
+  {
+    "from": "customer1",
+    "to": "admin",
+    "message": "привет",
+    "timestamp": "2025-03-07T10:58:18.763Z"
+  },
+  {
+    "from": "customer1",
+    "to": "admin",
+    "message": "привет",
+    "timestamp": "2025-03-07T10:59:59.934Z"
+  },
+  {
+    "from": "customer1",
+    "to": "admin",
+    "message": "привет",
+    "timestamp": "2025-03-07T11:30:12.273Z"
+  },
+  {
+    "from": "customer1",
+    "to": "admin",
+    "message": "привет",
+    "timestamp": "2025-03-07T11:30:17.554Z"
+  },
+  {
+    "from": "customer1",
+    "to": "admin",
+    "message": "привет",
+    "timestamp": "2025-03-07T11:30:22.731Z"
+  },
+  {
+    "from": "customer1",
+    "to": "admin",
+    "message": "привет",
+    "timestamp": "2025-03-07T11:30:31.264Z"
+  },
+  {
+    "from": "customer1",
+    "to": "admin",
+    "message": "раз",
+    "timestamp": "2025-03-07T11:30:40.727Z"
+  },
+  {
+    "from": "customer1",
+    "to": "admin",
+    "message": "раз",
+    "timestamp": "2025-03-07T11:30:46.976Z"
+  },
+  {
+    "from": "customer1",
+    "to": "admin",
+    "message": "раз",
+    "timestamp": "2025-03-07T11:30:54.008Z"
+  },
+  {
+    "from": "customer1",
+    "to": "admin",
+    "message": "привет",
+    "timestamp": "2025-03-07T11:31:36.381Z"
+  },
+  {
+    "from": "customer1",
+    "to": "admin",
+    "message": "раз",
+    "timestamp": "2025-03-07T11:31:41.482Z"
+  },
+  {
+    "from": "customer1",
+    "to": "admin",
+    "message": "раз",
+    "timestamp": "2025-03-07T11:31:48.586Z"
+  },
+  {
+    "from": "customer1",
+    "to": "admin",
+    "message": "два",
+    "timestamp": "2025-03-07T11:31:53.875Z"
+  },
+  {
+    "from": "customer1",
+    "to": "admin",
+    "message": "первый",
+    "timestamp": "2025-03-07T11:32:22.531Z"
+  },
+  {
+    "from": "customer1",
+    "to": "admin",
+    "message": "первый",
+    "timestamp": "2025-03-07T11:32:29.626Z"
+  },
+  {
+    "from": "admin",
+    "to": "customer1",
+    "message": "второй",
+    "timestamp": "2025-03-07T11:32:35.360Z"
+  }
+]
