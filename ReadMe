@@ -1,63 +1,13 @@
-# Task9 - Интернет-магазин
+Инструкция по запуску
+1. Клонируем проект
+  ```bash
+  git clone https://github.com/Alpha-x-prog/task9.git
+  ```
+2. Запуск Docker
+3. В корневой директории прописать команду
+  ```bash
+  docker-compose up -build
+  ```
 
-## Инструкция по запуску
-
-### 1. Клонирование проекта
-```bash
-git clone https://github.com/Alpha-x-prog/task9.git
-cd task9
-```
-
-### 2. Запуск через Docker
-```bash
-docker-compose up --build
-```
-
-### 3. Доступ к приложению
-- Админ-панель: http://localhost:3002/admin
-- Интерфейс покупателя: http://localhost:3001
-
-## Структура проекта
-```bash
-.
-├── client/          # React-приложение
-├── server/          # Node.js сервер
-├── docker-compose.yml
-├── .gitattributes   # Конфиг для подсветки синтаксиса
-└── README.md
-```
-
-## Решение проблем с подсветкой кода на GitHub
-
-Если код не подсвечивается:
-1. Убедитесь, что все файлы добавлены в репозиторий:
-```bash
-git add .
-git commit -m "fix: add missing files"
-git push
-```
-
-2. Добавьте `.gitattributes` в корень проекта:
-```gitattributes
-*.js linguist-language=JavaScript
-*.jsx linguist-language=JavaScript
-*.html linguist-language=HTML
-*.css linguist-language=CSS
-```
-
-3. Проверьте:
-- Правильные расширения файлов (`.js`, `.jsx`, `.html`, `.css`)
-- Кодировку UTF-8
-- Размер файлов (не более 1 MB)
-
-## Требования
-- Docker 20.10+
-- Node.js 16+
-- npm 8+
-
----
-
-**Примечание:** После изменений в `.gitattributes` может потребоваться:
-1. Перезагрузить страницу репозитория
-2. Подождать 2-3 минуты
-3. Проверить подсветку в разных файлах
+На http://localhost:3002/addmin - админ страница 
+На http://localhost:3001 страница покупателя
